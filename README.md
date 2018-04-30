@@ -57,8 +57,13 @@ Angular.js 的话是元老了，特点是大而全，适合企业级开发。
 
 双向绑定的原理，主要还是依靠 ES5 object 新增的一个方法 defineProperty 实现的。vue 会遍历组件 data 下个的属性，通过 defineProperty 给他们加上 getter 和 setter。然后在组件渲染的时候，会有一个收集依赖的过程。具体是每个组件都有一个 watcher 实例，组件渲染时会触发属性的 getter，然后在 watcher 里面就会记录下这些依赖项，同时在依赖项里面也会记录上依赖它的 watcher。在设置一个属性值的时候，会调用依赖项的 setter，然后会通知 watcher。watcher 就会调用渲染函数。计算属性也是一个道理，会实例化一个 watcher。然后收集依赖，然后依赖项变化的时候，进行计算。
 
-### v-if 的原理
+### 新增 vue 语法
 
-在 AST 语法树生成 vnode 树的流程中，会加入条件判断语句。是否生成 vnode 节点。
+- parse(html)，生成AST节点的时候，往节点附加信息;
+- generate(ast)，生成VNode Render时候，加入代码控制运行时流程;
+- render.call(vm)，生成VNode树时，提供对应的renderHelpersFunc函数，例如 _c, _v, _s 等;
+- patch(vnode)，在真实的dom上处理UI渲染，事件监听等;
+
+
 
 
